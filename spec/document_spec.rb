@@ -5,7 +5,8 @@ RSpec.describe PageBuilder::Document do
   describe '::new' do
 
     it 'returns a document initialized with the html5 doctype and basic html page structure' do
-      expect(subject.to_html).to start_with "<!DOCTYPE html>\n<html>"
+      # JRuby adds a space in the doctype...
+      expect(subject.to_html).to match "<!DOCTYPE html\s?>\n<html>"
       expect(subject.at('/html/head')).not_to be_nil
       expect(subject.at('/html/head/following-sibling::body')).not_to be_nil
     end
@@ -18,7 +19,8 @@ RSpec.describe PageBuilder::Document do
       test_node = subject.create_element(Faker::Lorem.word)
       subject.at('//body').add_child(test_node)
       expect(subject.body.name).to eq 'body'
-      expect(subject.body.children.first).to be test_node
+      # JRuby apparently clones elements or something so it won't be the same instance
+      expect(subject.body.children.first).to eq test_node
     end
 
     it 'caches the result' do
@@ -34,7 +36,8 @@ RSpec.describe PageBuilder::Document do
       test_node = subject.create_element(Faker::Lorem.word)
       subject.at('//head').add_child(test_node)
       expect(subject.head.name).to eq 'head'
-      expect(subject.head.children.first).to be test_node
+      # JRuby apparently clones elements or something so it won't be the same instance
+      expect(subject.head.children.first).to eq test_node
     end
 
     it 'caches the result' do
