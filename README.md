@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-Include `PageBuilder::Tags` in the class where you want to build out pages. It will add helper methods for most HTML 5 tags. As an example, you can then call `a 'click here', href: 'http://www.example.com'` to generate an anchor node that links to `http://www.example.com` with "click here" as the text.
+Include `PageBuilder::TagHelpers` in the class where you want to build out pages. It will add helper methods for most HTML 5 tags. As an example, you can then call `a 'click here', href: 'http://www.example.com'` to generate an anchor node that links to `http://www.example.com` with "click here" as the text.
 
 ### Available helpers
 
