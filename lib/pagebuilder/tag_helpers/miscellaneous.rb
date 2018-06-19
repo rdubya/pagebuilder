@@ -8,15 +8,7 @@ module PageBuilder
     private
 
     def a(content = nil, **attributes)
-      Elements::Anchor.new(pagebuilder_document).configure(content, attributes)
-    end
-
-    def base(content = nil, **attributes)
-      pagebuilder_basic_element('base', content, attributes)
-    end
-
-    def body(content = nil, **attributes)
-      pagebuilder_basic_element('body', content, attributes)
+      pagebuilder_configured_element(Elements::Anchor, content, attributes)
     end
 
     def br(content = nil, **attributes)
@@ -31,21 +23,8 @@ module PageBuilder
       pagebuilder_basic_element('dialog', content, attributes)
     end
 
-    def head(content = nil, **attributes)
-      pagebuilder_basic_element('head', content, attributes)
-    end
-
     def hr(content = nil, **attributes)
       pagebuilder_basic_element('hr', content, attributes)
-    end
-
-    def html(content = nil, **attributes)
-      pagebuilder_basic_element('html', content, attributes)
-    end
-
-    # TODO make helpers for more common link tags
-    def link(content = nil, **attributes)
-      pagebuilder_basic_element('link', content, attributes)
     end
 
     def menu(content = nil, **attributes)
@@ -54,11 +33,6 @@ module PageBuilder
 
     def menuitem(content = nil, **attributes)
       pagebuilder_basic_element('menuitem', content, attributes)
-    end
-
-    # TODO Make helpers for more often used meta tags
-    def meta(content = nil, **attributes)
-      pagebuilder_basic_element('meta', content, attributes)
     end
 
     def noscript(content = nil, **attributes)

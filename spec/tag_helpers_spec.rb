@@ -43,11 +43,27 @@ RSpec.describe PageBuilder::TagHelpers do
 
   end
 
-  it "only defines to_html as a public method" do
-    expect(presenter.methods - [:to_html]).to eq Object.new.methods
+  describe '#pagebuilder_document' do
+
+    it 'returns a new pagebuilder document and caches it' do
+      expect(PageBuilder::Document).to receive(:new).once.and_call_original
+      expect(presenter.send(:pagebuilder_document)).to be presenter.send(:pagebuilder_document)
+    end
+
+    it 'returns the set document if one was set' do
+      doc = PageBuilder::Document.new
+      expect(PageBuilder::Document).not_to receive(:new)
+      presenter.send(:pagebuilder_document=, doc)
+      expect(presenter.send(:pagebuilder_document)).to be doc
+    end
+
   end
 
   describe '#to_html' do
+
+    it 'is the only publicly defined method' do
+      expect(presenter.methods - [:to_html]).to eq Object.new.methods
+    end
 
     it 'returns the result of calling to_html on the document' do
       expected_output = Faker::Lorem.paragraph
@@ -108,10 +124,6 @@ RSpec.describe PageBuilder::TagHelpers do
       it_behaves_like 'a configured basic element', :b
     end
 
-    describe '#base' do
-      it_behaves_like 'a configured basic element', :base
-    end
-
     describe '#bdi' do
       it_behaves_like 'a configured basic element', :bdi
     end
@@ -122,10 +134,6 @@ RSpec.describe PageBuilder::TagHelpers do
 
     describe '#blockquote' do
       it_behaves_like 'a configured basic element', :blockquote
-    end
-
-    describe '#body' do
-      it_behaves_like 'a configured basic element', :body
     end
 
     describe '#br' do
@@ -294,10 +302,6 @@ RSpec.describe PageBuilder::TagHelpers do
       it_behaves_like 'a configured basic element', :h6
     end
 
-    describe '#head' do
-      it_behaves_like 'a configured basic element', :head
-    end
-
     describe '#header' do
       it_behaves_like 'a configured basic element', :header
     end
@@ -322,10 +326,6 @@ RSpec.describe PageBuilder::TagHelpers do
 
     describe '#hr' do
       it_behaves_like 'a configured basic element', :hr
-    end
-
-    describe '#html' do
-      it_behaves_like 'a configured basic element', :html
     end
 
     describe '#i' do
@@ -378,10 +378,6 @@ RSpec.describe PageBuilder::TagHelpers do
       it_behaves_like 'a configured basic element', :li
     end
 
-    describe '#link' do
-      it_behaves_like 'a configured basic element', :link
-    end
-
     describe '#main' do
       it_behaves_like 'a configured basic element', :main
     end
@@ -400,10 +396,6 @@ RSpec.describe PageBuilder::TagHelpers do
 
     describe '#menuitem' do
       it_behaves_like 'a configured basic element', :menuitem
-    end
-
-    describe '#meta' do
-      it_behaves_like 'a configured basic element', :meta
     end
 
     describe '#meter' do

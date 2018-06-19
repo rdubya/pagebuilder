@@ -16,10 +16,8 @@ module PageBuilder
     end
 
     # Defaults to a new document set to the html5 doctype
-    # unfortunately this is the only way I've found to be able to set the
-    # doctype correctly
     def pagebuilder_document
-      @pagebuilder_document ||= Nokogiri::HTML::Document.parse('<!DOCTYPE html>')
+      @pagebuilder_document ||= PageBuilder::Document.new
     end
 
     def pagebuilder_document=(doc)
