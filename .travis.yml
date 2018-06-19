@@ -7,4 +7,4 @@ rvm:
 install:
   - gem install bundler -v 1.16.2
   - bundle install --jobs=3 --retry=3 --path vendor/bundle
-script: rake test
+script: bundle exec rake test
