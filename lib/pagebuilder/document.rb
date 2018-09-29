@@ -10,7 +10,7 @@ module PageBuilder
     # TODO make helpers for more common link tags
 
     def self.new
-      # This is the only way I've found so far to force the html5 subtype
+      # This is the only way I've found so far to force the html5 doctype
       parse('<!DOCTYPE html><html><head></head><body></body></html>')
     end
 
