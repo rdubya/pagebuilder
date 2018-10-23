@@ -124,6 +124,10 @@ RSpec.describe PageBuilder::TagHelpers do
       it_behaves_like 'a configured basic element', :b
     end
 
+    describe '#base' do
+      it_behaves_like 'a configured basic element', :base
+    end
+
     describe '#bdi' do
       it_behaves_like 'a configured basic element', :bdi
     end
@@ -378,6 +382,10 @@ RSpec.describe PageBuilder::TagHelpers do
       it_behaves_like 'a configured basic element', :li
     end
 
+    describe '#link' do
+      it_behaves_like 'a configured basic element', :link
+    end
+
     describe '#main' do
       it_behaves_like 'a configured basic element', :main
     end
@@ -396,6 +404,10 @@ RSpec.describe PageBuilder::TagHelpers do
 
     describe '#menuitem' do
       it_behaves_like 'a configured basic element', :menuitem
+    end
+
+    describe '#meta' do
+      it_behaves_like 'a configured basic element', :meta
     end
 
     describe '#meter' do
