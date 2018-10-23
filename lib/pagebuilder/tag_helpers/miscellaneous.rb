@@ -10,6 +10,10 @@ module PageBuilder
     def a(content = nil, **attributes)
       pagebuilder_configured_element(Elements::Anchor, content, attributes)
     end
+    
+    def base(content = nil, **attributes)
+      pagebuilder_basic_element('base', content, attributes)
+    end
 
     def br(content = nil, **attributes)
       pagebuilder_basic_element('br', content, attributes)
@@ -26,6 +30,10 @@ module PageBuilder
     def hr(content = nil, **attributes)
       pagebuilder_basic_element('hr', content, attributes)
     end
+    
+    def link(content = nil, **attributes)
+      pagebuilder_basic_element('link', content, attributes)
+    end
 
     def menu(content = nil, **attributes)
       pagebuilder_basic_element('menu', content, attributes)
@@ -33,6 +41,10 @@ module PageBuilder
 
     def menuitem(content = nil, **attributes)
       pagebuilder_basic_element('menuitem', content, attributes)
+    end
+
+    def meta(content = nil, **attributes)
+      pagebuilder_basic_element('meta', content, attributes)
     end
 
     def noscript(content = nil, **attributes)
