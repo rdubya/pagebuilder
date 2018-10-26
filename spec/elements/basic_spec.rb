@@ -1,8 +1,26 @@
 RSpec.describe PageBuilder::Elements::Basic do
 
-  subject { described_class.new('testelement', Nokogiri::HTML::Document.new) }
+  let(:doc) { Nokogiri::HTML::Document.new }
+  subject { described_class.new('testelement', doc) }
 
   it { is_expected.to be_a Nokogiri::XML::Element }
+
+  describe '#>>' do
+
+    it 'appends the right side node to the parent and returns the right side node' do
+      li_tag = described_class.new('li', doc)
+      expect(subject >> li_tag).to be li_tag
+      expect(subject.children.first).to be li_tag
+    end
+
+    it 'allows chaining' do
+      li_tag = described_class.new('li', doc)
+      a_tag = described_class.new('a', doc)
+      expect(subject >> li_tag >> a_tag).to be a_tag
+      expect(subject.children.first.children.first).to be a_tag
+    end
+
+  end
 
   describe '#configure' do
 

@@ -5,6 +5,11 @@ module PageBuilder
     # we can add extra helpers
     class Basic < Nokogiri::XML::Element
 
+      # Create a shorthand way to add multiple children and return the last one.
+      # With helpers this could be `ul >> li >> a(href: 'example.com')`
+      # (see Nokogiri::XML::Element#add_child)
+      alias_method :>>, :add_child
+
       # Helper to easily set the content and attributes for this element
       # @param content [String] text for the content of the element
       # @param attributes [] keyword arguments for the attributes that should be set
@@ -24,7 +29,7 @@ module PageBuilder
       end
 
       # Helper to set data attributes as a single call instead of
-      # an individual line for each attributes
+      # an individual line for each attribute
       # @param attributes [Hash] data attributes that should be set (minus the "data-" prefix)
       # @return void
       def data_attributes=(attributes)
