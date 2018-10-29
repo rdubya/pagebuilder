@@ -13,6 +13,44 @@ RSpec.describe PageBuilder::Document do
 
   end
 
+  describe '#base_uri' do
+
+    it 'returns the base uri for the document if one is set' do
+      url = Faker::Internet.url
+      subject.head << PageBuilder::Elements::Basic.new('base', subject).configure(href: url)
+      expect(subject.base_uri).to eq url
+    end
+
+    it 'retruns nil by default and does not create a <base> tag' do
+      expect(subject.base_uri).to be_nil
+      expect(subject.head.at('base')).to be_nil
+    end
+
+  end
+
+  describe '#base_uri=' do
+
+    let(:url) { Faker::Internet.url }
+
+    it 'sets the base uri on a new <base> tag if one does not already exist' do
+      expect(subject.head.at('base')).to be_nil
+      subject.base_uri = url
+      expect(subject.base_uri).to eq url
+      expect(subject.head.at('base')['href']).to eq url
+    end
+
+    it 'sets the base uri on the existing <base> tag if one exists' do
+      subject.base_uri = Faker::Internet.url
+      expect(subject.base_uri).to_not eq url
+      subject.base_uri = url
+      expect(subject.base_uri).to eq url
+      base_tags = subject.head.xpath('base')
+      expect(base_tags.size).to be 1
+      expect(base_tags.first['href']).to eq url
+    end
+
+  end
+
   describe '#body' do
 
     it 'returns the body node' do
