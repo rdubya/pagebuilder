@@ -5,86 +5,115 @@ module PageBuilder
 
     private
 
+    # @!group Available Tags
+
+    # @!visibility public
     def button(content = nil, **attributes)
       pagebuilder_basic_element('button', content, attributes)
     end
 
-    def checkbox(content = nil, **attributes)
-      pagebuilder_configured_element(PageBuilder::Elements::Inputs::Checkbox, content, attributes)
+    # @!visibility public
+    def checkbox(**attributes)
+      pagebuilder_configured_element(PageBuilder::Elements::Inputs::Checkbox, nil, attributes)
     end
 
-    def email_input(content = nil, **attributes)
-      pagebuilder_configured_element(PageBuilder::Elements::Inputs::Email, content, attributes)
+    # @!visibility public
+    def email_input(**attributes)
+      pagebuilder_configured_element(PageBuilder::Elements::Inputs::Email, nil, attributes)
     end
 
+    # @!visibility public
     def fieldset(content = nil, **attributes)
       pagebuilder_basic_element('fieldset', content, attributes)
     end
 
-    def file_input(content = nil, **attributes)
-      pagebuilder_configured_element(PageBuilder::Elements::Inputs::File, content, attributes)
+    # @!visibility public
+    def file_input(**attributes)
+      pagebuilder_configured_element(PageBuilder::Elements::Inputs::File, nil, attributes)
     end
 
+    # @!visibility public
     def form(content = nil, **attributes)
       pagebuilder_basic_element('form', content, attributes)
     end
 
-    def hidden_input(content = nil, **attributes)
-      pagebuilder_configured_element(PageBuilder::Elements::Inputs::Hidden, content, attributes)
+    # @!visibility public
+    def hidden_input(**attributes)
+      pagebuilder_configured_element(PageBuilder::Elements::Inputs::Hidden, nil, attributes)
     end
 
-    def input(content = nil, **attributes)
-      pagebuilder_configured_element(PageBuilder::Elements::Input, content, attributes)
+    # @!visibility public
+    def input(**attributes)
+      pagebuilder_configured_element(PageBuilder::Elements::Input, nil, attributes)
     end
 
-    def keygen(content = nil, **attributes)
-      pagebuilder_basic_element('keygen', content, attributes)
+    # @!visibility public
+    def keygen(**attributes)
+      pagebuilder_basic_element('keygen', nil, attributes)
     end
 
     # TODO add helpers for things like labeled_input
+
+    # @!visibility public
     def label(content = nil, **attributes)
       pagebuilder_basic_element('label', content, attributes)
     end
 
+    # @!visibility public
     def legend(content = nil, **attributes)
       pagebuilder_basic_element('legend', content, attributes)
     end
 
-    def optgroup(content = nil, **attributes)
-      pagebuilder_basic_element('optgroup', content, attributes)
+    # TODO make optgroup take an array of options as the first argument
+
+    # @!visibility public
+    def optgroup(**attributes)
+      pagebuilder_basic_element('optgroup', nil, attributes)
     end
 
+    # @!visibility public
     def option(content = nil, **attributes)
       pagebuilder_basic_element('option', content, attributes)
     end
 
-    def password_input(content = nil, **attributes)
-      pagebuilder_configured_element(PageBuilder::Elements::Inputs::Password, content, attributes)
+    # @!visibility public
+    def password_input(**attributes)
+      pagebuilder_configured_element(PageBuilder::Elements::Inputs::Password, nil, attributes)
     end
 
-    def radio_button(content = nil, **attributes)
-      pagebuilder_configured_element(PageBuilder::Elements::Inputs::RadioButton, content, attributes)
+    # @!visibility public
+    def radio_button(**attributes)
+      pagebuilder_configured_element(PageBuilder::Elements::Inputs::RadioButton, nil, attributes)
     end
 
-    def search_input(content = nil, **attributes)
-      pagebuilder_configured_element(PageBuilder::Elements::Inputs::Search, content, attributes)
+    # @!visibility public
+    def search_input(**attributes)
+      pagebuilder_configured_element(PageBuilder::Elements::Inputs::Search, nil, attributes)
     end
 
-    def select(content = nil, **attributes)
-      pagebuilder_basic_element('select', content, attributes)
+    # TODO Make select take an array of options/optgroups
+
+    # @!visibility public
+    def select(**attributes)
+      pagebuilder_basic_element('select', nil, attributes)
     end
 
-    def submit_button(content = nil, **attributes)
-      pagebuilder_configured_element(PageBuilder::Elements::Inputs::SubmitButton, content, attributes)
+    # @!visibility public
+    def submit_button(**attributes)
+      pagebuilder_configured_element(PageBuilder::Elements::Inputs::SubmitButton, nil, attributes)
     end
 
-    def text_input(content = nil, **attributes)
-      pagebuilder_configured_element(PageBuilder::Elements::Inputs::Text, content, attributes)
+    # @!visibility public
+    def text_input(**attributes)
+      pagebuilder_configured_element(PageBuilder::Elements::Inputs::Text, nil, attributes)
     end
 
+    # @!visibility public
     def textarea(content = nil, **attributes)
       pagebuilder_basic_element('textarea', content, attributes)
     end
+
+    # @!endgroup Available Tags
 
   end
 end

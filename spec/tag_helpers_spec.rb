@@ -6,7 +6,7 @@ RSpec.describe PageBuilder::TagHelpers do
 
   let(:presenter) { TestPresenter.new }
 
-  shared_examples 'a configured basic element' do |method_name, tag_name|
+  shared_examples 'a configured empty element' do |method_name, tag_name|
 
     tag_name ||= method_name.to_s
 
@@ -17,6 +17,22 @@ RSpec.describe PageBuilder::TagHelpers do
       expect(element.children).to be_empty
       expect(element.text).to be_empty
     end
+
+    it 'is configured with provided attributes' do
+      attr_name = Faker::Lorem.word
+      attr_value = Faker::Lorem.word
+      element = presenter.send(method_name, attr_name.to_sym => attr_value)
+      expect(element.text).to be_empty
+      expect(element[attr_name]).to eq attr_value
+    end
+
+  end
+
+  shared_examples 'a configured basic element' do |method_name, tag_name|
+
+    tag_name ||= method_name.to_s
+
+    it_behaves_like 'a configured empty element', method_name, tag_name
 
     it 'is configured with content if provided' do
       content = Faker::Lorem.sentence
@@ -30,14 +46,6 @@ RSpec.describe PageBuilder::TagHelpers do
       content = Faker::Lorem.sentence
       element = presenter.send(method_name, content, attr_name.to_sym => attr_value)
       expect(element.text).to eq content
-      expect(element[attr_name]).to eq attr_value
-    end
-
-    it 'is configured with provided attributes if content is not provided' do
-      attr_name = Faker::Lorem.word
-      attr_value = Faker::Lorem.word
-      element = presenter.send(method_name, attr_name.to_sym => attr_value)
-      expect(element.text).to be_empty
       expect(element[attr_name]).to eq attr_value
     end
 
@@ -105,7 +113,7 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#area' do
-      it_behaves_like 'a configured basic element', :area
+      it_behaves_like 'a configured empty element', :area
     end
 
     describe '#article' do
@@ -137,7 +145,7 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#br' do
-      it_behaves_like 'a configured basic element', :br
+      it_behaves_like 'a configured empty element', :br
     end
 
     describe '#button' do
@@ -154,7 +162,7 @@ RSpec.describe PageBuilder::TagHelpers do
 
     describe '#checkbox' do
 
-      it_behaves_like 'a configured basic element', :checkbox, 'input'
+      it_behaves_like 'a configured empty element', :checkbox, 'input'
 
       it 'creates a Checkbox element' do
         input = presenter.send(:checkbox)
@@ -175,11 +183,11 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#col' do
-      it_behaves_like 'a configured basic element', :col
+      it_behaves_like 'a configured empty element', :col
     end
 
     describe '#colgroup' do
-      it_behaves_like 'a configured basic element', :colgroup
+      it_behaves_like 'a configured empty element', :colgroup
     end
 
     describe '#data' do
@@ -215,7 +223,7 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#dl' do
-      it_behaves_like 'a configured basic element', :dl
+      it_behaves_like 'a configured empty element', :dl
     end
 
     describe '#dt' do
@@ -228,7 +236,7 @@ RSpec.describe PageBuilder::TagHelpers do
 
     describe '#email_input' do
 
-      it_behaves_like 'a configured basic element', :email_input, 'input'
+      it_behaves_like 'a configured empty element', :email_input, 'input'
 
       it 'creates an Email element' do
         input = presenter.send(:email_input)
@@ -241,7 +249,7 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#embed' do
-      it_behaves_like 'a configured basic element', :embed
+      it_behaves_like 'a configured empty element', :embed
     end
 
     describe '#fieldset' do
@@ -258,7 +266,7 @@ RSpec.describe PageBuilder::TagHelpers do
 
     describe '#file_input' do
 
-      it_behaves_like 'a configured basic element', :file_input, 'input'
+      it_behaves_like 'a configured empty element', :file_input, 'input'
 
       it 'creates a File element' do
         input = presenter.send(:file_input)
@@ -307,12 +315,12 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#hgroup' do
-      it_behaves_like 'a configured basic element', :hgroup
+      it_behaves_like 'a configured empty element', :hgroup
     end
 
     describe '#hidden_input' do
 
-      it_behaves_like 'a configured basic element', :hidden_input, 'input'
+      it_behaves_like 'a configured empty element', :hidden_input, 'input'
 
       it 'creates a Hidden element' do
         input = presenter.send(:hidden_input)
@@ -325,7 +333,7 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#hr' do
-      it_behaves_like 'a configured basic element', :hr
+      it_behaves_like 'a configured empty element', :hr
     end
 
     describe '#i' do
@@ -337,12 +345,12 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#img' do
-      it_behaves_like 'a configured basic element', :img
+      it_behaves_like 'a configured empty element', :img
     end
 
     describe '#input' do
 
-      it_behaves_like 'a configured basic element', :input
+      it_behaves_like 'a configured empty element', :input
 
       it 'creates an Input element' do
         input = presenter.send(:input)
@@ -363,7 +371,7 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#keygen' do
-      it_behaves_like 'a configured basic element', :keygen
+      it_behaves_like 'a configured empty element', :keygen
     end
 
     describe '#label' do
@@ -394,10 +402,6 @@ RSpec.describe PageBuilder::TagHelpers do
       it_behaves_like 'a configured basic element', :menu
     end
 
-    describe '#menuitem' do
-      it_behaves_like 'a configured basic element', :menuitem
-    end
-
     describe '#meter' do
       it_behaves_like 'a configured basic element', :meter
     end
@@ -415,11 +419,11 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#ol' do
-      it_behaves_like 'a configured basic element', :ol
+      it_behaves_like 'a configured empty element', :ol
     end
 
     describe '#optgroup' do
-      it_behaves_like 'a configured basic element', :optgroup
+      it_behaves_like 'a configured empty element', :optgroup
     end
 
     describe '#option' do
@@ -435,12 +439,12 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#param' do
-      it_behaves_like 'a configured basic element', :param
+      it_behaves_like 'a configured empty element', :param
     end
 
     describe '#password_input' do
 
-      it_behaves_like 'a configured basic element', :password_input, 'input'
+      it_behaves_like 'a configured empty element', :password_input, 'input'
 
       it 'creates a Password element' do
         input = presenter.send(:password_input)
@@ -466,7 +470,7 @@ RSpec.describe PageBuilder::TagHelpers do
 
     describe '#radio_button' do
 
-      it_behaves_like 'a configured basic element', :radio_button, 'input'
+      it_behaves_like 'a configured empty element', :radio_button, 'input'
 
       it 'creates a RadioButton element' do
         input = presenter.send(:radio_button)
@@ -512,7 +516,7 @@ RSpec.describe PageBuilder::TagHelpers do
 
     describe '#search_input' do
 
-      it_behaves_like 'a configured basic element', :search_input, 'input'
+      it_behaves_like 'a configured empty element', :search_input, 'input'
 
       it 'creates a Search element' do
         input = presenter.send(:search_input)
@@ -529,7 +533,7 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#select' do
-      it_behaves_like 'a configured basic element', :select
+      it_behaves_like 'a configured empty element', :select
     end
 
     describe '#small' do
@@ -537,7 +541,7 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#source' do
-      it_behaves_like 'a configured basic element', :source
+      it_behaves_like 'a configured empty element', :source
     end
 
     describe '#span' do
@@ -558,7 +562,7 @@ RSpec.describe PageBuilder::TagHelpers do
 
     describe '#submit_button' do
 
-      it_behaves_like 'a configured basic element', :submit_button, 'input'
+      it_behaves_like 'a configured empty element', :submit_button, 'input'
 
       it 'creates a SubmitButton element' do
         input = presenter.send(:submit_button)
@@ -579,11 +583,11 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#table' do
-      it_behaves_like 'a configured basic element', :table
+      it_behaves_like 'a configured empty element', :table
     end
 
     describe '#tbody' do
-      it_behaves_like 'a configured basic element', :tbody
+      it_behaves_like 'a configured empty element', :tbody
     end
 
     describe '#td' do
@@ -596,7 +600,7 @@ RSpec.describe PageBuilder::TagHelpers do
 
     describe '#text_input' do
 
-      it_behaves_like 'a configured basic element', :text_input, 'input'
+      it_behaves_like 'a configured empty element', :text_input, 'input'
 
       it 'creates a Text element' do
         input = presenter.send(:text_input)
@@ -613,7 +617,7 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#tfoot' do
-      it_behaves_like 'a configured basic element', :tfoot
+      it_behaves_like 'a configured empty element', :tfoot
     end
 
     describe '#th' do
@@ -621,7 +625,7 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#thead' do
-      it_behaves_like 'a configured basic element', :thead
+      it_behaves_like 'a configured empty element', :thead
     end
 
     describe '#time' do
@@ -629,11 +633,11 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#tr' do
-      it_behaves_like 'a configured basic element', :tr
+      it_behaves_like 'a configured empty element', :tr
     end
 
     describe '#track' do
-      it_behaves_like 'a configured basic element', :track
+      it_behaves_like 'a configured empty element', :track
     end
 
     describe '#u' do
@@ -641,7 +645,7 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#ul' do
-      it_behaves_like 'a configured basic element', :ul
+      it_behaves_like 'a configured empty element', :ul
     end
 
     describe '#var' do
@@ -653,7 +657,7 @@ RSpec.describe PageBuilder::TagHelpers do
     end
 
     describe '#wbr' do
-      it_behaves_like 'a configured basic element', :wbr
+      it_behaves_like 'a configured empty element', :wbr
     end
   end
 end

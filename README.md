@@ -22,6 +22,8 @@ Or install it yourself as:
 
 Include `PageBuilder::TagHelpers` in the class where you want to build out pages. It will add helper methods for most HTML 5 tags. As an example, you can then call `a 'click here', href: 'http://www.example.com'` to generate an anchor node that links to `http://www.example.com` with "click here" as the text.
 
+For a list of currently supported tags see [TagHelpers Docs](https://www.rubydoc.info/gems/pagebuilder/PageBuilder/TagHelpers)
+
 ### Available helpers
 
 There are some helpers added with the tags that are not directly related to element nodes. These are generally prefixed with `pagebuilder_` and are private except for the `to_html` method.

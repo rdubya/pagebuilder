@@ -3,31 +3,43 @@
 module PageBuilder
   module TagHelpers
 
+    # TODO Make the containers (ol/ul) take arrays of list items
+
     private
 
+    # @!group Available Tags
+
+    # @!visibility public
     def dd(content = nil, **attributes)
       pagebuilder_basic_element('dd', content, attributes)
     end
 
-    def dl(content = nil, **attributes)
-      pagebuilder_basic_element('dl', content, attributes)
+    # @!visibility public
+    def dl(**attributes)
+      pagebuilder_basic_element('dl', nil, attributes)
     end
 
+    # @!visibility public
     def dt(content = nil, **attributes)
       pagebuilder_basic_element('dt', content, attributes)
     end
 
+    # @!visibility public
     def li(content = nil, **attributes)
       pagebuilder_basic_element('li', content, attributes)
     end
 
-    def ol(content = nil, **attributes)
-      pagebuilder_basic_element('ol', content, attributes)
+    # @!visibility public
+    def ol(**attributes)
+      pagebuilder_basic_element('ol', nil, attributes)
     end
 
-    def ul(content = nil, **attributes)
-      pagebuilder_basic_element('ul', content, attributes)
+    # @!visibility public
+    def ul(**attributes)
+      pagebuilder_basic_element('ul', nil, attributes)
     end
+
+    # @!endgroup Available Tags
 
   end
 end

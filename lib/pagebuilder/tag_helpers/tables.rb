@@ -5,45 +5,61 @@ module PageBuilder
 
     private
 
+    # @!group Available Tags
+
+    # @!visibility public
     def caption(content = nil, **attributes)
       pagebuilder_basic_element('caption', content, attributes)
     end
 
-    def col(content = nil, **attributes)
-      pagebuilder_basic_element('col', content, attributes)
+    # @!visibility public
+    def col(**attributes)
+      pagebuilder_basic_element('col', nil, attributes)
     end
 
-    def colgroup(content = nil, **attributes)
-      pagebuilder_basic_element('colgroup', content, attributes)
+    # @!visibility public
+    def colgroup(**attributes)
+      pagebuilder_basic_element('colgroup', nil, attributes)
     end
 
-    def table(content = nil, **attributes)
-      pagebuilder_basic_element('table', content, attributes)
+    # @!visibility public
+    def table(**attributes)
+      pagebuilder_basic_element('table', nil, attributes)
     end
 
-    def tbody(content = nil, **attributes)
-      pagebuilder_basic_element('tbody', content, attributes)
+    # TODO allow this to take an array of trs
+
+    # @!visibility public
+    def tbody(**attributes)
+      pagebuilder_basic_element('tbody', nil, attributes)
     end
 
+    # @!visibility public
     def td(content = nil, **attributes)
       pagebuilder_basic_element('td', content, attributes)
     end
 
-    def tfoot(content = nil, **attributes)
-      pagebuilder_basic_element('tfoot', content, attributes)
+    # @!visibility public
+    def tfoot(**attributes)
+      pagebuilder_basic_element('tfoot', nil, attributes)
     end
 
+    # @!visibility public
     def th(content = nil, **attributes)
       pagebuilder_basic_element('th', content, attributes)
     end
 
-    def thead(content = nil, **attributes)
-      pagebuilder_basic_element('thead', content, attributes)
+    # @!visibility public
+    def thead(**attributes)
+      pagebuilder_basic_element('thead', nil, attributes)
     end
 
-    def tr(content = nil, **attributes)
-      pagebuilder_basic_element('tr', content, attributes)
+    # @!visibility public
+    def tr(**attributes)
+      pagebuilder_basic_element('tr', nil, attributes)
     end
+
+    # @!endgroup Available Tags
 
   end
 end
