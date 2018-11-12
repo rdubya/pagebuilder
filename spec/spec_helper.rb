@@ -13,3 +13,9 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+RSpec::Matchers.define :be_an_html_element do |name, attrs = {}|
+  match do |node|
+    node.name == name.to_s && attrs.all? { |attr, value| node[attr] == value }
+  end
+end

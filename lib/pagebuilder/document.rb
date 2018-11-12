@@ -1,10 +1,19 @@
 # frozen_string_literal: true
 
+require 'pagebuilder/script_manager'
+
 module PageBuilder
 
   # Adds helper methods to the standard Nokogiri HTML document and
   # forces an html5 doctype
   class Document < Nokogiri::HTML::Document
+    extend Forwardable
+
+    # @!method add_script(uri, **attributes)
+    #  @see ScriptManager#add_script
+    # @!method remove_script(uri)
+    #  @see ScriptManager#remove_script
+    def_delegators :script_manager, :add_script, :remove_script
 
     def self.new
       # This is the only way I've found so far to force the html5 doctype
@@ -35,6 +44,19 @@ module PageBuilder
     # @return [Nokogiri::XML::Node]
     def head
       @head ||= at('/html/head')
+    end
+
+    # Add managed nodes and then convert to html
+    # @see Nokogiri::HTML::Document#to_html
+    def to_html(*options)
+      @script_manager.append_tags(body) if @script_manager
+      super
+    end
+
+    private
+
+    def script_manager
+      @script_manager ||= ScriptManager.new
     end
 
   end

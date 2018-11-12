@@ -2,6 +2,17 @@ RSpec.describe PageBuilder::Document do
 
   it { is_expected.to be_a Nokogiri::HTML::Document }
 
+  it 'delegates #add_script and #remove_script to the script manager' do
+    add_script_uri = Faker::Internet.url
+    remove_script_uri = Faker::Internet.url
+    script_manager = subject.send(:script_manager)
+    expect(script_manager).to receive(:add_script).with(add_script_uri)
+    expect(script_manager).to receive(:remove_script).with(remove_script_uri)
+
+    subject.add_script(add_script_uri)
+    subject.remove_script(remove_script_uri)
+  end
+
   describe '::new' do
 
     it 'returns a document initialized with the html5 doctype and basic html page structure' do
@@ -21,7 +32,7 @@ RSpec.describe PageBuilder::Document do
       expect(subject.base_uri).to eq url
     end
 
-    it 'retruns nil by default and does not create a <base> tag' do
+    it 'returns nil by default and does not create a <base> tag' do
       expect(subject.base_uri).to be_nil
       expect(subject.head.at('base')).to be_nil
     end
@@ -81,6 +92,20 @@ RSpec.describe PageBuilder::Document do
     it 'caches the result' do
       expect(subject).to receive(:at).with('/html/head').once.and_call_original
       expect(subject.head).to be subject.head
+    end
+
+  end
+
+  describe '#to_html' do
+
+    it 'does not contain any script nodes if none were added' do
+      expect(subject.to_html).not_to include 'script'
+    end
+
+    it 'includes expected script tags if any were added' do
+      script_uri = Faker::Internet.url
+      subject.add_script(script_uri)
+      expect(subject.to_html).to include %Q(<script src="#{script_uri}")
     end
 
   end
