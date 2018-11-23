@@ -1,3 +1,7 @@
+## v0.3.0
+### Changed
+* Made it so that the body and head tags on a PageBuilder::Document are PageBuilder::Elements::Basic objects
+
 ## v0.2.0
 ### Added
 * :>> as an alias of Node#append_child to allow for cleaner nesting

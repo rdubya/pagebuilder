@@ -66,15 +66,10 @@ RSpec.describe PageBuilder::Document do
 
     it 'returns the body node' do
       test_node = subject.create_element(Faker::Lorem.word)
-      subject.at('//body').add_child(test_node)
+      subject.at('/html/body').add_child(test_node)
+      expect(subject.body).to be_a PageBuilder::Elements::Basic
       expect(subject.body.name).to eq 'body'
-      # JRuby apparently clones elements or something so it won't be the same instance
-      expect(subject.body.children.first).to eq test_node
-    end
-
-    it 'caches the result' do
-      expect(subject).to receive(:at).with('/html/body').once.and_call_original
-      expect(subject.body).to be subject.body
+      expect(subject.body.children.first).to be test_node
     end
 
   end
@@ -83,15 +78,10 @@ RSpec.describe PageBuilder::Document do
 
     it 'returns the head node' do
       test_node = subject.create_element(Faker::Lorem.word)
-      subject.at('//head').add_child(test_node)
+      subject.at('/html/head').add_child(test_node)
+      expect(subject.head).to be_a PageBuilder::Elements::Basic
       expect(subject.head.name).to eq 'head'
-      # JRuby apparently clones elements or something so it won't be the same instance
-      expect(subject.head.children.first).to eq test_node
-    end
-
-    it 'caches the result' do
-      expect(subject).to receive(:at).with('/html/head').once.and_call_original
-      expect(subject.head).to be subject.head
+      expect(subject.head.children.first).to be test_node
     end
 
   end

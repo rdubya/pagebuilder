@@ -9,6 +9,9 @@ module PageBuilder
   class Document < Nokogiri::HTML::Document
     extend Forwardable
 
+    # @return [PageBuilder::Elements::Basic]
+    attr_reader :body, :head
+
     # @!method add_script(uri, **attributes)
     #  @see ScriptManager#add_script
     # @!method remove_script(uri)
@@ -17,7 +20,14 @@ module PageBuilder
 
     def self.new
       # This is the only way I've found so far to force the html5 doctype
-      parse('<!DOCTYPE html><html><head></head><body></body></html>')
+      parse('<!DOCTYPE html><html></html>')
+    end
+
+    def initialize(*)
+      super
+      @head = Elements::Basic.new('head', self)
+      @body = Elements::Basic.new('body', self)
+      at('/html') << @head << @body
     end
 
     # Returns the base uri set for the document if there is one
@@ -30,26 +40,14 @@ module PageBuilder
     # @param uri [String]
     # @return [void]
     def base_uri=(uri)
-      base_tag = head.at('base') || head.add_child(Elements::Basic.new('base', self))
+      base_tag = @head.at('base') || @head.add_child(Elements::Basic.new('base', self))
       base_tag['href'] = uri
-    end
-
-    # Gets the body node for the document
-    # @return [Nokogiri::XML::Node]
-    def body
-      @body ||= at('/html/body')
-    end
-
-    # Gets the head node for the document
-    # @return [Nokogiri::XML::Node]
-    def head
-      @head ||= at('/html/head')
     end
 
     # Add managed nodes and then convert to html
     # @see Nokogiri::HTML::Document#to_html
     def to_html(*options)
-      @script_manager.append_tags(body) if @script_manager
+      @script_manager.append_tags(@body) if @script_manager
       super
     end
 
