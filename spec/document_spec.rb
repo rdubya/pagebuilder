@@ -17,9 +17,7 @@ RSpec.describe PageBuilder::Document do
 
     it 'returns a document initialized with the html5 doctype and basic html page structure' do
       # JRuby adds a space in the doctype...
-      expect(subject.to_html).to match "<!DOCTYPE html\s?>\n<html>"
-      expect(subject.at('/html/head')).not_to be_nil
-      expect(subject.at('/html/head/following-sibling::body')).not_to be_nil
+      expect(subject.to_html).to match "<!DOCTYPE html\s?>\n<html></html>"
     end
 
   end
@@ -28,7 +26,7 @@ RSpec.describe PageBuilder::Document do
 
     it 'returns the base uri for the document if one is set' do
       url = Faker::Internet.url
-      subject.head << PageBuilder::Elements::Basic.new('base', subject).configure(href: url)
+      subject.base_uri = url
       expect(subject.base_uri).to eq url
     end
 
@@ -64,12 +62,21 @@ RSpec.describe PageBuilder::Document do
 
   describe '#body' do
 
-    it 'returns the body node' do
+    it 'creates and returns the body node on the first call' do
       test_node = subject.create_element(Faker::Lorem.word)
-      subject.at('/html/body').add_child(test_node)
-      expect(subject.body).to be_a PageBuilder::Elements::Basic
+
+      # This creates the head and body elements so it needs to happen before
+      # trying to add the test node to it
       expect(subject.body.name).to eq 'body'
-      expect(subject.body.children.first).to be test_node
+      p subject.to_html
+      subject.at('/html/head/following-sibling::body').add_child(test_node)
+      # JRuby apparently clones elements or something so it won't be the same instance
+      expect(subject.body.children.first).to eq test_node
+    end
+
+    it 'caches the result' do
+      expect(subject.body).not_to be_nil
+      expect(subject.body).to be subject.body
     end
 
   end
@@ -78,10 +85,17 @@ RSpec.describe PageBuilder::Document do
 
     it 'returns the head node' do
       test_node = subject.create_element(Faker::Lorem.word)
-      subject.at('/html/head').add_child(test_node)
-      expect(subject.head).to be_a PageBuilder::Elements::Basic
+
+      # This creates the head element so needs to happen before the child test
       expect(subject.head.name).to eq 'head'
-      expect(subject.head.children.first).to be test_node
+      subject.at('/html/head').add_child(test_node)
+      # JRuby apparently clones elements or something so it won't be the same instance
+      expect(subject.head.children.first).to eq test_node
+    end
+
+    it 'caches the result' do
+      expect(subject.head).not_to be_nil
+      expect(subject.head).to be subject.head
     end
 
   end

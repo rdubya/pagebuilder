@@ -10,14 +10,16 @@ RSpec.describe PageBuilder::Elements::Basic do
     it 'appends the right side node to the parent and returns the right side node' do
       li_tag = described_class.new('li', doc)
       expect(subject >> li_tag).to be li_tag
-      expect(subject.children.first).to be li_tag
+      # JRuby apparently clones elements or something so it won't be the same instance
+      expect(subject.children.first).to eq li_tag
     end
 
     it 'allows chaining' do
       li_tag = described_class.new('li', doc)
       a_tag = described_class.new('a', doc)
       expect(subject >> li_tag >> a_tag).to be a_tag
-      expect(subject.children.first.children.first).to be a_tag
+      # JRuby apparently clones elements or something so it won't be the same instance
+      expect(subject.children.first.children.first).to eq a_tag
     end
 
   end
